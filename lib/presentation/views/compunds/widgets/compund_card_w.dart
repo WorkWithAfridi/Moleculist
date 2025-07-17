@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:moleculist/common/resources/color/app_colors.dart';
+import 'package:moleculist/presentation/views/global/widgets/custom_loader.dart';
 
 import '../../../../domain/models/compund_m.dart';
 
@@ -19,7 +22,13 @@ class CompoundCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Image.network(compound.imageUrl, height: 100, fit: BoxFit.contain, errorBuilder: (_, __, ___) => const Icon(Icons.broken_image)),
+            CachedNetworkImage(
+              imageUrl: compound.imageUrl,
+              height: 100,
+              fit: BoxFit.contain,
+              placeholder: (context, url) => CustomLoader(color: AppColors().pastelViolet),
+              errorWidget: (context, url, error) => const Icon(Icons.broken_image),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(

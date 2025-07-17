@@ -26,22 +26,26 @@ class CompundListView extends StatelessWidget {
 
             return Padding(
               padding: const EdgeInsets.all(12.0),
-              child: GridView.builder(
-                itemCount: state.compounds.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 0.75,
+              child: RefreshIndicator(
+                onRefresh: () => compoundCubitInstance.loadCompoundList(shouldLoadFromCache: false, shouldShowLoading: false),
+                color: AppColors().pastelViolet,
+                child: GridView.builder(
+                  itemCount: state.compounds.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 0.75,
+                  ),
+                  itemBuilder: (context, index) {
+                    return CompoundCard(
+                      compound: state.compounds[index],
+                      onTap: () {
+                        // TODO: Implement navigation to detail page
+                      },
+                    );
+                  },
                 ),
-                itemBuilder: (context, index) {
-                  return CompoundCard(
-                    compound: state.compounds[index],
-                    onTap: () {
-                      // TODO: Implement navigation to detail page
-                    },
-                  );
-                },
               ),
             );
           }
