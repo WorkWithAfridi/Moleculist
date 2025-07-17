@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:moleculist/common/utilities/extensions/on_build_context.dart';
+import 'package:moleculist/common/utilities/routing/app_routes.dart';
 import 'package:moleculist/presentation/blocs/splash_c/splash_cubit.dart';
 
 import '../../../common/resources/assets/app_assets.dart';
@@ -28,7 +29,7 @@ class _SplashViewState extends State<SplashView> {
       body: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state is SplashCompleted) {
-            // Navigator.pushReplacementNamed(context, ROUTES.getAuthenticationLandingRoute);
+            context.navigateOffNamed(ROUTES.getDashboardRoute);
           }
         },
         child: SizedBox(
@@ -36,7 +37,7 @@ class _SplashViewState extends State<SplashView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [SizedBox(height: 200, width: 200, child: SvgPicture.asset(AppAssets.appLogo))],
+            children: [SizedBox(height: 200, width: 200, child: Image.asset(AppAssets.appLogo))],
           ),
         ),
       ),

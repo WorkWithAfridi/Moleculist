@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moleculist/presentation/blocs/dashboard_b/dashboard_bloc.dart';
 import 'package:toastification/toastification.dart';
 
 import 'common/resources/theme/app_theme.dart';
@@ -19,7 +20,10 @@ class MoleculistApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => SplashCubit())],
+      providers: [
+        BlocProvider(create: (context) => SplashCubit()),
+        BlocProvider(create: (context) => DashboardBloc()),
+      ],
       child: ToastificationWrapper(
         child: MaterialApp(
           title: 'MoleculistApp',

@@ -14,5 +14,5 @@ class AppAssets {
   static const xLogoTwo = '$svgAssetPath/x-logo-two.svg';
   static const githubLogo = '$svgAssetPath/github-logo.svg';
   static const githubLogoTwo = '$svgAssetPath/github-logo-two.svg';
-  static const appLogo = '$svgAssetPath/app-logo.svg';
+  static const appLogo = '$pngAssetPath/app-logo.png';
 }

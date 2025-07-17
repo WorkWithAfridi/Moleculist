@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:moleculist/domain/repositories/compound_r.dart';
+import 'package:moleculist/domain/services/compund_s.dart';
+import 'package:moleculist/presentation/blocs/compound_c/cubit/compound_cubit.dart';
 
 import '../../../data/local/local_storage.dart';
 import '../../../data/remote/controller/network_c.dart';
@@ -29,16 +31,12 @@ class DependencyInjection {
 
   void _configureRepositoriesAndServices() {
     // Repository
-    GetIt.instance.registerLazySingleton<AbstractCompoundRepository>(
-      () => CompoundRepository(
-        GetIt.instance<NetworkController>(), // assuming your UserRepository needs NetworkController
-      ),
-    );
+    GetIt.instance.registerLazySingleton<CompoundRepository>(() => CompoundRepository(GetIt.instance<NetworkController>()));
 
-    // // Service
-    // GetIt.instance.registerLazySingleton(() => UserService(GetIt.instance<AbstractUserRepository>()));
+    // Service
+    GetIt.instance.registerLazySingleton(() => CompoundService(repository: compoundRepositoryInstance));
 
-    // // Bloc
-    // GetIt.instance.registerFactory(() => UserBloc(userService: GetIt.instance<UserService>()));
+    // Bloc
+    GetIt.instance.registerFactory(() => CompoundCubit(compoundService: compoundServiceInstance));
   }
 }

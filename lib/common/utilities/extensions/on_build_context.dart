@@ -6,29 +6,12 @@ extension GlobalX on BuildContext {
 
   // Show a Snackbar message
   void showSnackBar(String message) {
-    ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(content: Text(message)));
   }
 
   // Show a modal dialog
   Future<T?> showModal<T>(Widget dialog) {
-    return showDialog<T>(
-      context: this,
-      builder: (_) => dialog,
-    );
-  }
-
-  // Navigate to a new screen
-  Future<T?> navigateTo<T>(Widget page) {
-    return Navigator.of(this).push(
-      MaterialPageRoute(builder: (_) => page),
-    );
-  }
-
-  // Pop the current screen
-  void pop<T>([T? result]) {
-    Navigator.of(this).pop(result);
+    return showDialog<T>(context: this, builder: (_) => dialog);
   }
 
   // Show a loading dialog with a custom message
@@ -36,9 +19,7 @@ extension GlobalX on BuildContext {
     showDialog(
       context: this,
       barrierDismissible: false,
-      builder: (_) => Center(
-        child: CircularProgressIndicator(),
-      ),
+      builder: (_) => Center(child: CircularProgressIndicator()),
     );
   }
 
@@ -49,19 +30,12 @@ extension GlobalX on BuildContext {
 
   // Show a simple toast-like message (using ScaffoldMessenger)
   void showToast(String message, {Duration duration = const Duration(seconds: 2)}) {
-    ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: duration,
-      ),
-    );
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(content: Text(message), duration: duration));
   }
 
   // Push replacement (replaces the current screen with a new one)
   Future<T?> replaceWith<T>(Widget page) {
-    return Navigator.of(this).pushReplacement(
-      MaterialPageRoute(builder: (_) => page),
-    );
+    return Navigator.of(this).pushReplacement(MaterialPageRoute(builder: (_) => page));
   }
 
   // Show an alert dialog with a message and optional buttons
@@ -103,19 +77,6 @@ extension GlobalX on BuildContext {
   // Find the nearest ScaffoldMessenger
   ScaffoldMessengerState get scaffoldMessenger => ScaffoldMessenger.of(this);
 
-  // Push a named route
-  Future<T?> navigateToNamed<T>(String routeName, {Object? arguments}) {
-    return Navigator.of(this).pushNamed(
-      routeName,
-      arguments: arguments,
-    );
-  }
-
-  // Pop to a specific route
-  void popUntilNamed(String routeName) {
-    Navigator.of(this).popUntil(ModalRoute.withName(routeName));
-  }
-
   // Media query
   Size get screenSize => MediaQuery.of(this).size;
   double get screenWidth => screenSize.width;
@@ -127,4 +88,68 @@ extension GlobalX on BuildContext {
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => theme.textTheme;
   ColorScheme get colorScheme => theme.colorScheme;
+}
+
+extension NavigationExtensions on BuildContext {
+  // Push a new screen onto the stack
+  Future<T?> navigateTo<T>(Widget page) {
+    return Navigator.of(this).push(MaterialPageRoute(builder: (_) => page));
+  }
+
+  // Push a new screen and replace the current one
+  Future<T?> navigateOff<T>(Widget page) {
+    return Navigator.of(this).pushReplacement(MaterialPageRoute(builder: (_) => page));
+  }
+
+  // Push a new screen and remove all previous routes
+  Future<T?> navigateAndRemoveAll<T>(Widget page) {
+    return Navigator.of(this).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => page), (Route<dynamic> route) => false);
+  }
+
+  // Push a named route
+  Future<T?> navigateToNamed<T>(String routeName, {Object? arguments}) {
+    return Navigator.of(this).pushNamed<T>(routeName, arguments: arguments);
+  }
+
+  // Push a named route and replace the current one
+  Future<T?> navigateOffNamed<T>(String routeName, {Object? arguments}) {
+    return Navigator.of(this).pushReplacementNamed<T?, T>(routeName, arguments: arguments);
+  }
+
+  // Push a named route and remove all previous routes
+  Future<T?> navigateAndRemoveAllNamed<T>(String routeName, {Object? arguments}) {
+    return Navigator.of(this).pushNamedAndRemoveUntil<T>(routeName, (Route<dynamic> route) => false, arguments: arguments);
+  }
+
+  // Pop until a specific named route is reached
+  void popUntilNamed(String routeName) {
+    Navigator.of(this).popUntil(ModalRoute.withName(routeName));
+  }
+
+  // Pop back to the root
+  void popToRoot() {
+    Navigator.of(this).popUntil((route) => route.isFirst);
+  }
+
+  // Pop N screens
+  void popN(int n) {
+    for (int i = 0; i < n; i++) {
+      Navigator.of(this).pop();
+    }
+  }
+
+  // Pop the current screen
+  void pop<T>([T? result]) {
+    Navigator.of(this).pop<T>(result);
+  }
+
+  // Check if we can pop
+  bool canPop() {
+    return Navigator.of(this).canPop();
+  }
+
+  // Try to maybe pop the current screen
+  Future<bool> maybePop<T>([T? result]) {
+    return Navigator.of(this).maybePop<T>(result);
+  }
 }
