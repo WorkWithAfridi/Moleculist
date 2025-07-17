@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../../common/utilities/logger.dart';
+import '../../../presentation/views/global/widgets/show_toast.dart';
 import '../config/api_endpoints.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
@@ -11,110 +13,82 @@ enum Method { POST, GET, PUT, DELETE, PATCH }
 class NetworkController {
   Dio? _dio;
 
-  static header() => {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      };
+  static header() => {"Accept": "application/json", "Content-Type": "application/json"};
 
   Future<NetworkController> init() async {
     _dio = Dio(
-      BaseOptions(
-        baseUrl: ApiEndPoints.baseUrl,
-        headers: header(),
-        connectTimeout: const Duration(seconds: 30),
-        receiveTimeout: const Duration(seconds: 30),
-      ),
+      BaseOptions(baseUrl: ApiEndPoints.baseUrl, headers: header(), connectTimeout: const Duration(seconds: 30), receiveTimeout: const Duration(seconds: 30)),
     );
     initInterceptors();
     return this;
   }
 
   void initInterceptors() {
-    _dio!.interceptors.add(
-      dioLogger,
-    );
+    _dio!.interceptors.add(dioLogger);
   }
 
-  Future<dynamic> request({
-    required String url,
-    required Method method,
-    params,
-    String? authToken,
-  }) async {
+  Future<Response?> request({required String url, required Method method, dynamic params, String? authToken, Map<String, dynamic>? headers}) async {
+    Response? response;
+
+    // NO AUTH REQUIRED FOR THIS PROJ
+    // authToken ??= localStorageInstance.getString(key: LocalStorageKeys.token);
+
     try {
-      final response = await compute(_performHttpRequest, {
-        'url': url,
-        'method': method,
-        'params': params,
-        'authToken': authToken,
-      });
+      Options options = Options(headers: headers ?? {"Authorization": "Bearer $authToken"});
+
+      switch (method) {
+        case Method.POST:
+          response = await _dio!.post(url, data: params, options: options);
+          break;
+        case Method.DELETE:
+          response = await _dio!.delete(url, options: options);
+          break;
+        case Method.PATCH:
+          response = await _dio!.patch(url, data: params, options: options);
+          break;
+        case Method.PUT:
+          response = await _dio!.put(url, data: params, options: options);
+          break;
+        case Method.GET:
+          response = await _dio!.get(url, queryParameters: params, options: options);
+          break;
+      }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response;
       } else if (response.statusCode == 401) {
-        throw Exception("Unauthorized");
-      } else if (response.statusCode == 500) {
-        throw Exception("Server Error");
+        logger.error("Unauthorized: ${response.data}");
+        showToast("Unauthorized", "You are not authorized", backgroundColor: Colors.red);
       } else if (response.statusCode == 422) {
-        throw Exception("Error 422");
+        String msg = response.data['message'] ?? "Validation error";
+        logger.error("Validation Error: $msg");
+        showToast("Snap", msg, backgroundColor: Colors.red, icon: const Icon(Icons.error_outline, size: 40));
+      } else if (response.statusCode == 500) {
+        logger.error("Server Error: ${response.data}");
+        showToast("Oops", "Server error");
       } else {
-        throw Exception("Something went wrong");
-      }
-    } on SocketException catch (e) {
-      logger.error(e.message);
-      throw Exception("No Internet Connection");
-    } on FormatException catch (e) {
-      logger.error(e.message);
-      throw Exception("Bad response format");
-    } on DioException catch (e) {
-      logger.error(e.message ?? e.toString());
-      handleDioError(e);
-      throw Exception(e);
-    } catch (e) {
-      logger.error(e.toString());
-      throw Exception("Something went wrong");
-    }
-  }
-
-  static Future<Response> _performHttpRequest(Map<String, dynamic> data) async {
-    Dio dio = Dio(
-      BaseOptions(
-        baseUrl: ApiEndPoints.baseUrl,
-        headers: header(),
-      ),
-    );
-
-    final url = data['url'];
-    final method = data['method'];
-    final params = data['params'];
-    final authToken = data['authToken'];
-
-    try {
-      Response response;
-
-      switch (method) {
-        case Method.POST:
-          response = await dio.post(url, data: params, options: Options(headers: {"Authorization": "Bearer $authToken"}));
-          break;
-        case Method.DELETE:
-          response = await dio.delete(url);
-          break;
-        case Method.PATCH:
-          response = await dio.patch(url);
-          break;
-        default:
-          response = await dio.get(url, queryParameters: params, options: Options(headers: {"Authorization": "Bearer $authToken"}));
-          break;
+        logger.error("Unexpected Status: ${response.statusCode} - ${response.data}");
+        showToast("Oops", "Something went wrong");
       }
 
       return response;
+    } on SocketException catch (e) {
+      logger.error("No Internet Connection: $e");
+      showToast("Oops", "No Internet Connection");
+      return response;
+    } on FormatException catch (e) {
+      logger.error("Bad response format: $e");
+      showToast("Oops", "Bad response format");
+      return response;
     } on DioException catch (e) {
-      handleDioError(e);
-      throw Exception(e);
+      logger.error("DioException: ${e.message}");
+      return e.response;
+    } catch (e) {
+      logger.error("Unhandled Error: $e");
+      showToast("Oops", "Something went wrong");
+      return response;
     }
   }
-
-  static void handleDioError(DioException e) {
-    logger.error(e.toString());
-  }
 }
+
+final NetworkController networkControllerInstance = GetIt.I<NetworkController>();

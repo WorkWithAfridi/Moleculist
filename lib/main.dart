@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toastification/toastification.dart';
 
 import 'common/resources/theme/app_theme.dart';
 import 'common/utilities/di/dependency_injection.dart';
@@ -19,15 +20,17 @@ class MoleculistApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [BlocProvider(create: (context) => SplashCubit())],
-      child: MaterialApp(
-        title: 'MoleculistApp',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.light,
-        scrollBehavior: ScrollBehavior().copyWith(physics: BouncingScrollPhysics()),
-        onGenerateRoute: ROUTECONTROLLER.routeController,
-        initialRoute: ROUTES.getSplashRoute,
+      child: ToastificationWrapper(
+        child: MaterialApp(
+          title: 'MoleculistApp',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: ThemeMode.light,
+          scrollBehavior: ScrollBehavior().copyWith(physics: BouncingScrollPhysics()),
+          onGenerateRoute: ROUTECONTROLLER.routeController,
+          initialRoute: ROUTES.getSplashRoute,
+        ),
       ),
     );
   }

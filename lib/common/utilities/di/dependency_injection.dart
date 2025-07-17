@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:moleculist/domain/repositories/compound_r.dart';
 
 import '../../../data/local/local_storage.dart';
 import '../../../data/remote/controller/network_c.dart';
@@ -28,11 +29,11 @@ class DependencyInjection {
 
   void _configureRepositoriesAndServices() {
     // Repository
-    // GetIt.instance.registerLazySingleton<AbstractUserRepository>(
-    //   () => UserRepository(
-    //     GetIt.instance<NetworkController>(), // assuming your UserRepository needs NetworkController
-    //   ),
-    // );
+    GetIt.instance.registerLazySingleton<AbstractCompoundRepository>(
+      () => CompoundRepository(
+        GetIt.instance<NetworkController>(), // assuming your UserRepository needs NetworkController
+      ),
+    );
 
     // // Service
     // GetIt.instance.registerLazySingleton(() => UserService(GetIt.instance<AbstractUserRepository>()));

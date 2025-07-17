@@ -31,9 +31,8 @@ class _SplashViewState extends State<SplashView> {
             // Navigator.pushReplacementNamed(context, ROUTES.getAuthenticationLandingRoute);
           }
         },
-        child: Container(
+        child: SizedBox(
           width: getWidth(context),
-          padding: const EdgeInsets.all(AppSizes.defaultPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
