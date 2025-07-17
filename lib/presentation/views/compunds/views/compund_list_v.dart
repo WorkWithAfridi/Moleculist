@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moleculist/common/resources/color/app_colors.dart';
+import 'package:moleculist/presentation/views/global/widgets/custom_loader.dart';
 
 import '../../../blocs/compound_c/cubit/compound_cubit.dart';
 import '../widgets/compund_card_w.dart';
@@ -14,7 +16,7 @@ class CompundListView extends StatelessWidget {
       body: BlocBuilder<CompoundCubit, CompoundState>(
         builder: (context, state) {
           if (state is CompoundLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: CustomLoader(color: AppColors().pastelViolet));
           }
 
           if (state is CompoundLoadedState) {

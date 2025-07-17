@@ -55,8 +55,8 @@ class CustomButton extends StatelessWidget {
       resolvedTextColor = AppColors().black;
     }
     if (isBorderedButton && isDisabled) {
-      resolvedButtonColor = AppColors().cA3ADB8;
-      resolvedTextColor = AppColors().cA3ADB8;
+      resolvedButtonColor = AppColors().primary;
+      resolvedTextColor = AppColors().primary;
     }
     if (onlyContent && resolvedTextColor == Colors.white) {
       resolvedTextColor = Color(AppColors().primarySwatch.c500);
@@ -66,7 +66,7 @@ class CustomButton extends StatelessWidget {
       color: isBorderedButton || onlyContent
           ? Colors.transparent
           : isDisabled
-          ? AppColors().cD3DAE0
+          ? AppColors().primary
           : resolvedButtonColor,
       borderRadius: BorderRadius.circular(AppSizes.radiusLg),
       child: InkWell(
@@ -87,7 +87,7 @@ class CustomButton extends StatelessWidget {
             border: borderColor == null
                 ? null
                 : isBorderedButton || !onlyContent
-                ? Border.all(width: 1, color: borderColor ?? AppColors().cDEE3E7)
+                ? Border.all(width: 1, color: borderColor ?? AppColors().primary)
                 : null,
           ),
           alignment: Alignment.center,

@@ -98,7 +98,8 @@ class _BottomNavbarIcon extends StatelessWidget {
                         height: isSelected ? 1.5 : 0.5, // Highlight thickness for the selected state.
                         width: double.maxFinite,
                         color: isSelected
-                            ? Color(AppColors().primarySwatch.c500) // Primary color for selected state.
+                            ? AppColors()
+                                  .pastelViolet // Primary color for selected state.
                             : Colors.black.withOpacity(0.2), // Faint color for non-selected state.
                       ),
                     ),
@@ -110,7 +111,8 @@ class _BottomNavbarIcon extends StatelessWidget {
                           ? bottomNavbarItem.iconFilled!
                           : bottomNavbarItem.icon, // Use the filled icon for the selected state.
                       color: isSelected
-                          ? Color(AppColors().primarySwatch.c500) // Icon color for the selected state.
+                          ? AppColors()
+                                .pastelViolet // Icon color for the selected state.
                           : Colors.black.withOpacity(0.35), // Icon color for non-selected state.
                       size: 21, // Icon size.
                     ),
@@ -121,7 +123,8 @@ class _BottomNavbarIcon extends StatelessWidget {
                         fontWeight: FontWeight.w500, // Medium font weight.
                         fontSize: 11, // Small font size for the label.
                         color: isSelected
-                            ? Color(AppColors().primarySwatch.c500) // Text color for selected state.
+                            ? AppColors()
+                                  .pastelViolet // Text color for selected state.
                             : Colors.black.withOpacity(0.35), // Text color for non-selected state.
                       ),
                     ),

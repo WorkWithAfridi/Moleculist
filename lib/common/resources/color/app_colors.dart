@@ -16,8 +16,17 @@ class AppColors {
   Color white = const Color(0xFFFFFFFF);
   Color black = const Color(0xFF1A1A1A);
 
-  // Primary
-  Color primary = const Color(0xFF00157F);
+  // New Primary (Lavender)
+  Color primary = const Color(0xFFD1C4E9);
+
+  // Accent / Secondary
+  Color secondary = const Color(0xFFB39DDB); // Soft violet
+
+  // Supporting Colors
+  Color mint = const Color(0xFFC8E6C9);
+  Color peach = const Color(0xFFFFECB3);
+  Color pastelBackground = const Color(0xFFF5F5F5);
+  Color softGrey = const Color(0xFFE0E0E0);
 
   // Text colors
   Color textHeadingLight = const Color(0xFF000000);
@@ -29,73 +38,47 @@ class AppColors {
   Color textBodyLight = const Color(0xFF5B5B5C);
   Color textBodyDark = const Color(0xFFA7A7A8);
 
-  Color placeholderLight = const Color(0xFF7F7E80);
-  Color placeholderDark = const Color(0xFF7F7E80);
+  Color placeholderLight = const Color(0xFF9E9E9E);
+  Color placeholderDark = const Color(0xFFBDBDBD);
 
   Color textPrimaryButtonLight = const Color(0xFFFFFFFF);
   Color textPrimaryButtonDark = const Color(0xFFFFFFFF);
 
   // UI Elements
-  Color borderLight = const Color(0xFFD0CFD1);
-  Color borderDark = const Color(0xFF383838);
+  Color borderLight = const Color(0xFFCCCCCC);
+  Color borderDark = const Color(0xFF444444);
 
-  Color cardLight = const Color(0xFFEEEDF0);
+  Color cardLight = const Color(0xFFF3E5F5); // Light violet
   Color cardDark = const Color(0xFF262626);
 
-  Color backgroundLight = const Color(0xFFFFFFFF);
-  Color backgroundDark = const Color(0xFF000000);
+  Color backgroundLight = const Color(0xFFF5F5F5); // Soft background
+  Color backgroundDark = const Color(0xFF121212);
 
-  // Status colors
+  // Status colors (unchanged)
   Color success = const Color(0xFF0CF292);
   Color warning = const Color(0xFFF2920C);
   Color danger = const Color(0xFFF20C0C);
 
-  // Old preset colors (still retained if used elsewhere)
-  Color cD3DAE0 = const Color(0xFFD3DAE0);
+  // Primary Swatch (based on lavender)
   CustomColor primarySwatch = CustomColor(
-    c950: 0xFF000A40,
-    c900: 0xFF000D4C,
-    c800: 0xFF000F59,
-    c700: 0xFF001166,
-    c600: 0xFF001372,
-    c500: 0xFF00157F, // Base
-    c400: 0xFF00178C,
-    c300: 0xFF001998,
-    c200: 0xFF001BA5,
-    c100: 0xFF001DB2,
-    c50: 0xFF0020BE,
+    c950: 0xFFB39DDB,
+    c900: 0xFFBFADE0,
+    c800: 0xFFCCBEE5,
+    c700: 0xFFD1C4E9,
+    c600: 0xFFD8CCED,
+    c500: 0xFFDFD5F1,
+    c400: 0xFFE5DDF5,
+    c300: 0xFFEBE6F8,
+    c200: 0xFFF1EEFB,
+    c100: 0xFFF7F6FD,
+    c50: 0xFFFCFBFF,
   );
-  Color cCAD0D6 = const Color(0xFFCAD0D6);
-  Color c58636E = const Color(0xFF58636E);
-  Color cF7F9FA = const Color(0xFFF7F9FA);
-  Color cE9ECF0 = const Color(0xFFE9ECF0);
-  Color cEEF1F4 = const Color(0xFFEEF1F4);
-  Color cF6F7F9 = const Color(0xFFF6F7F9);
-  Color cDB0D0D = const Color(0xFFDB0D0D);
-  Color c64BE26 = const Color(0xFF64BE26);
-  Color c6C7580 = const Color(0xFF6C7580);
-  Color cE1E7F0 = const Color(0xFFE1E7F0);
-  Color cF0F2F5 = const Color(0xFFF0F2F5);
-  Color cDEE3E7 = const Color(0xFFDEE3E7);
-  Color cA3ADB8 = const Color(0xFFA3ADB8);
-  Color cD8DFE4 = const Color(0xFFD8DFE4);
+
+  // Add to AppColors
+  Color pastelLavender = const Color(0xFFD1C4E9);
+  Color pastelViolet = const Color(0xFFB39DDB);
+  Color pastelMint = const Color(0xFFC8E6C9);
+  Color pastelPeach = const Color(0xFFFFECB3);
   Color cD7DEE4 = const Color(0xFFD7DEE4);
-  Color c788591 = const Color(0xFF788591);
-  Color cF82A2A = const Color(0xFFF82A2A);
-  Color cDFE2E6 = const Color(0xFFDFE2E6);
-  Color cEEF0FE = const Color(0xFFEEF0FE);
-  Color cF4E8FC = const Color(0xFFF4E8FC);
-  Color cFFF3EA = const Color(0xFFFFF3EA);
-  Color cF8802A = const Color(0xFFF8802A);
-  Color cA52AF8 = const Color(0xFFA52AF8);
-  Color cEDF0FF = const Color(0xFF4253EC);
-  Color c00157F = const Color(0xFF00157F);
-  Color cF8F7FA = const Color(0xFFF8F7FA);
-  Color c5B5B5C = const Color(0xFF5B5B5C);
-  Color cE0FDB3 = const Color(0xFFE0FDB3);
-  Color cC8F681 = const Color(0xFFC8F681);
-  Color cFFFAB4 = const Color(0xFFFFFAB4);
-  Color cFFF566 = const Color(0xFFFFF566);
-  Color cE6EAFF = const Color(0xFFE6EAFF);
-  Color cDFFFB2 = const Color(0xFFDFFFB2);
+  Color cFEF9F3 = const Color(0xFFFEF9F3);
 }

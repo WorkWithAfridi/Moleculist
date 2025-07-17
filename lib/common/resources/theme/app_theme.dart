@@ -5,58 +5,40 @@ import 'app_font.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData.light().copyWith(
-    primaryColor: Colors.white,
-    scaffoldBackgroundColor: AppColors().white,
+    primaryColor: AppColors().pastelLavender,
+    scaffoldBackgroundColor: AppColors().pastelBackground,
     appBarTheme: AppBarTheme(
-      color: Colors.white,
-      foregroundColor: Colors.white,
-      iconTheme: const IconThemeData(color: Colors.white),
-      toolbarTextStyle: const TextTheme(
-        titleLarge: TextStyle(color: Colors.white, fontSize: 20),
-      ).bodyMedium,
-      titleTextStyle: const TextTheme(
-        titleLarge: TextStyle(color: Colors.white, fontSize: 20),
-      ).titleLarge,
+      color: AppColors().pastelLavender,
+      foregroundColor: AppColors().black,
+      iconTheme: IconThemeData(color: AppColors().black),
+      toolbarTextStyle: TextTheme(titleLarge: TextStyle(color: AppColors().black, fontSize: 20)).bodyMedium,
+      titleTextStyle: TextTheme(titleLarge: TextStyle(color: AppColors().black, fontSize: 20)).titleLarge,
       elevation: 0,
       scrolledUnderElevation: 0,
     ),
-    dividerColor: Colors.grey[300],
-    dividerTheme: DividerThemeData(
-      color: Colors.grey[300],
-    ),
-    drawerTheme: const DrawerThemeData(
-      backgroundColor: Colors.white,
-      surfaceTintColor: Colors.white,
-    ),
+    dividerColor: AppColors().cD7DEE4,
+    dividerTheme: DividerThemeData(color: AppColors().cD7DEE4),
+    drawerTheme: DrawerThemeData(backgroundColor: AppColors().pastelBackground, surfaceTintColor: AppColors().pastelBackground),
     textTheme: _buildTextTheme(lightMode: true),
-    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.orange),
-    iconButtonTheme: IconButtonThemeData(
-      style: IconButton.styleFrom(
-        foregroundColor: Colors.black,
-      ),
-    ),
-    iconTheme: const IconThemeData(
-      color: Colors.black,
-    ),
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: AppColors().pastelMint, primary: AppColors().pastelLavender),
+    iconButtonTheme: IconButtonThemeData(style: IconButton.styleFrom(foregroundColor: AppColors().black)),
+    iconTheme: IconThemeData(color: AppColors().black),
+    cardColor: AppColors().pastelViolet,
   );
 
   static final darkTheme = ThemeData.dark().copyWith(
-    primaryColor: Colors.teal,
-    dividerColor: Colors.grey[300],
+    primaryColor: AppColors().pastelViolet,
     scaffoldBackgroundColor: Colors.grey[900],
     appBarTheme: AppBarTheme(
-      color: Colors.teal,
-      iconTheme: const IconThemeData(color: Colors.white),
-      toolbarTextStyle: const TextTheme(
-        titleLarge: TextStyle(color: Colors.white, fontSize: 20),
-      ).bodyMedium,
-      titleTextStyle: const TextTheme(
-        titleLarge: TextStyle(color: Colors.white, fontSize: 20),
-      ).titleLarge,
+      color: AppColors().pastelViolet,
+      iconTheme: IconThemeData(color: Colors.white),
+      toolbarTextStyle: TextTheme(titleLarge: TextStyle(color: Colors.white, fontSize: 20)).bodyMedium,
+      titleTextStyle: TextTheme(titleLarge: TextStyle(color: Colors.white, fontSize: 20)).titleLarge,
     ),
+    dividerColor: Colors.grey[700],
     textTheme: _buildTextTheme(lightMode: false),
-    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.amber),
-    // Add other dark mode configurations
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: AppColors().pastelMint, primary: AppColors().pastelViolet),
+    cardColor: Colors.grey[850],
   );
 
   static TextTheme _buildTextTheme({required bool lightMode}) {
@@ -129,13 +111,7 @@ class AppTheme {
         color: lightMode ? AppColors().black : Colors.white,
         fontFamily: AppFonts.fontFamilyInter,
       ),
-      labelLarge: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        letterSpacing: 1.25,
-        color: Colors.white,
-        fontFamily: AppFonts.fontFamilyInter,
-      ),
+      labelLarge: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25, color: Colors.white, fontFamily: AppFonts.fontFamilyInter),
       bodySmall: TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w400,

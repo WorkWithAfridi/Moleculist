@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moleculist/common/resources/color/app_colors.dart';
 import 'package:moleculist/common/utilities/extensions/on_build_context.dart';
 import 'package:moleculist/common/utilities/routing/app_routes.dart';
 import 'package:moleculist/presentation/blocs/splash_c/splash_cubit.dart';
@@ -26,6 +27,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors().cFEF9F3,
       body: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state is SplashCompleted) {
