@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,6 +72,18 @@ class LocalStorage {
   /// Clears all values from SharedPreferences
   Future<bool> clear() async {
     return _prefs?.clear() ?? Future.value(false);
+  }
+
+  /// Writes a list of JSON-encoded strings (from objects)
+  Future<bool> writeList(String key, List<String> jsonList) async {
+    return _prefs?.setStringList(key, jsonList) ?? Future.value(false);
+  }
+
+  /// Reads a list of JSON strings and decodes each one into Map<String, dynamic>
+  Future<List<Map<String, dynamic>>>? readList(String key) async {
+    final list = _prefs?.getStringList(key);
+    if (list == null) return [];
+    return list.map((e) => json.decode(e) as Map<String, dynamic>).toList();
   }
 }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moleculist/domain/models/compund_m.dart';
 import 'package:moleculist/presentation/blocs/compound_c/cubit/compound_cubit.dart';
-import 'package:moleculist/presentation/blocs/cubit/search_cubit.dart';
+import 'package:moleculist/presentation/blocs/search_c/search_cubit.dart';
 import 'package:moleculist/presentation/views/compunds/views/compund_detail_v.dart';
 import 'package:moleculist/presentation/views/dashboard/dashboard_v.dart';
 

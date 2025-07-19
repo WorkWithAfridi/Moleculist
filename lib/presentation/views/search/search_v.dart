@@ -4,10 +4,10 @@ import 'package:gap/gap.dart';
 import 'package:moleculist/common/utilities/extensions/on_build_context.dart';
 import 'package:moleculist/presentation/views/global/widgets/custom_loader.dart';
 import 'package:moleculist/presentation/views/global/widgets/textfield_w.dart';
-import 'package:moleculist/presentation/views/search/widgets/search_compund_w.dart';
+import 'package:moleculist/presentation/views/global/widgets/search_compund_w.dart';
 
 import '../../../common/resources/color/app_colors.dart';
-import '../../blocs/cubit/search_cubit.dart';
+import '../../blocs/search_c/search_cubit.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});

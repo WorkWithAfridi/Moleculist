@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:moleculist/presentation/blocs/compound_c/cubit/compound_cubit.dart';
+import 'package:moleculist/presentation/blocs/favorite_c/favorite_cubit.dart';
 import 'package:moleculist/presentation/views/compunds/views/compund_list_v.dart';
 import 'package:moleculist/presentation/views/dashboard/models/bottom_navbar_m.dart';
 import 'package:moleculist/presentation/views/dashboard/pages/lorem_v.dart';
 import 'package:moleculist/presentation/views/dashboard/widgets/bottom_navbar_w.dart';
+import 'package:moleculist/presentation/views/favorite/views/favorite_v.dart';
 import 'package:moleculist/presentation/views/search/search_v.dart';
 
 import '../../../common/resources/dimentions/app_sizes.dart';
@@ -47,9 +49,9 @@ class DashboardViewState extends State<DashboardView> {
       ),
       DashboardPageM(
         isActive: true,
-        pageId: AppFeatures.loremFeature,
-        page: const LoremView(),
-        bottomNavbar: BottomNavbarM(title: "P1", icon: HugeIcons.strokeRoundedListSetting),
+        pageId: AppFeatures.favoriteFeature,
+        page: FavoriteView(),
+        bottomNavbar: BottomNavbarM(title: "Favorites", icon: HugeIcons.strokeRoundedListView),
       ),
       DashboardPageM(
         isActive: true,
@@ -65,6 +67,7 @@ class DashboardViewState extends State<DashboardView> {
 
   void loadData() {
     compoundCubit.loadCompoundList();
+    favoriteCubitInstance.loadFavorites();
   }
 
   DashboardBloc get dashboardBloc => context.read<DashboardBloc>();

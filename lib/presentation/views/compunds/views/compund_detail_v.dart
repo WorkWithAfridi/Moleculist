@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../domain/models/compund_m.dart';
+import '../../../blocs/favorite_c/favorite_cubit.dart';
+import '../../../blocs/favorite_c/favorite_state.dart';
 import '../utils/hazard_color_util.dart';
 
 class CompundDetailView extends StatelessWidget {
@@ -32,9 +35,20 @@ class CompundDetailView extends StatelessWidget {
       appBar: AppBar(
         title: Text(compound.name ?? 'Compound Detail'),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {
-          
-        }, icon: Icon(Icons.favorite_border))],
+        actions: [
+          BlocBuilder<FavoriteCubit, FavoriteState>(
+            builder: (context, state) {
+              final isFav = (state is FavoriteLoaded && state.favorites.any((c) => c.cid == compound.cid));
+
+              return IconButton(
+                icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
+                onPressed: () {
+                  context.read<FavoriteCubit>().toggleFavorite(compound);
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

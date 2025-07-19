@@ -7,6 +7,7 @@ import 'common/resources/theme/app_theme.dart';
 import 'common/utilities/di/dependency_injection.dart';
 import 'common/utilities/routing/app_routes.dart';
 import 'common/utilities/routing/route_controller.dart';
+import 'presentation/blocs/favorite_c/favorite_cubit.dart';
 import 'presentation/blocs/splash_c/splash_cubit.dart';
 
 void main(List<String> args) async {
@@ -23,6 +24,7 @@ class MoleculistApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => SplashCubit()),
         BlocProvider(create: (context) => DashboardBloc()),
+        BlocProvider(create: (context) => favoriteCubitInstance),
       ],
       child: ToastificationWrapper(
         child: MaterialApp(
