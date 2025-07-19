@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:moleculist/common/resources/color/app_colors.dart';
+import 'package:moleculist/common/utilities/extensions/string_extensions.dart';
 import 'package:moleculist/presentation/views/global/widgets/custom_loader.dart';
 
 import '../../../../domain/models/compund_m.dart';
@@ -15,17 +16,17 @@ class CompoundCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Container(
+        decoration: BoxDecoration(border: Border.all(width: 1, color: AppColors().pastelViolet.withAlpha(100))),
         clipBehavior: Clip.antiAlias,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CachedNetworkImage(
               imageUrl: compound.imageUrl,
-              height: 100,
-              fit: BoxFit.contain,
+              height: 120,
+              width: double.maxFinite,
+              fit: BoxFit.fitWidth,
               placeholder: (context, url) => CustomLoader(color: AppColors().pastelViolet),
               errorWidget: (context, url, error) => const Icon(Icons.broken_image),
             ),
@@ -33,7 +34,16 @@ class CompoundCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(
                 children: [
-                  Text(compound.name, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 4, left: 8, right: 8),
+                    child: Text(
+                      compound.name.capitalizeFirstLetter(),
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   Text(compound.formula, style: const TextStyle(color: Colors.grey)),
                   Text('${compound.weight} g/mol', style: const TextStyle(color: Colors.black87)),
                   const SizedBox(height: 4),

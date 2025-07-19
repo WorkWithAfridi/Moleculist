@@ -13,27 +13,41 @@ class CompoundModel {
 
   CompoundModel({required this.name, required this.cid, required this.formula, required this.weight, required this.imageUrl, required this.hazard});
 
-  factory CompoundModel.fromPubChemJson(Map<String, dynamic> data, String name) {
+  factory CompoundModel.fromPubChemJson(Map<String, dynamic> data, [String? fallbackName]) {
     final compound = data['PC_Compounds'][0];
     final props = compound['props'] as List;
     final cid = compound['id']['id']['cid'];
 
-    String formula = props.firstWhere((p) => p['urn']['label'] == 'Molecular Formula', orElse: () => {})['value']?['sval'] ?? 'N/A';
+    String getPropValue(String label, [String? name]) {
+      final prop = props.firstWhere((p) => p['urn']['label'] == label && (name == null || p['urn']['name'] == name), orElse: () => {});
+      return prop['value']?['sval']?.toString() ?? prop['value']?['fval']?.toString() ?? 'N/A';
+    }
 
-    String weight = props.firstWhere((p) => p['urn']['label'] == 'Molecular Weight', orElse: () => {})['value']?['fval']?.toString() ?? 'N/A';
+    final commonName = getPropValue('IUPAC Name', 'Preferred') != 'N/A' ? getPropValue('IUPAC Name', 'Preferred') : getPropValue('IUPAC Name', 'Traditional');
 
-    return CompoundModel(name: name, cid: cid, formula: formula, weight: weight, imageUrl: ApiEndPoints.getCompoundImage(cid), hazard: _mockHazard(name));
+    final formula = getPropValue('Molecular Formula');
+    final weight = getPropValue('Molecular Weight');
+
+    return CompoundModel(
+      name: commonName != 'N/A' ? commonName : (fallbackName ?? 'Unknown'),
+      cid: cid,
+      formula: formula,
+      weight: weight,
+      imageUrl: ApiEndPoints.getCompoundImage(cid),
+      hazard: _mockHazard(commonName),
+    );
   }
 
   static String _mockHazard(String name) {
-    if (name.toLowerCase().contains('benz') || name.toLowerCase().contains('chloro')) return 'Flammable';
-    if (name.toLowerCase().contains('formaldehyde')) return 'Toxic';
-    if (name.toLowerCase().contains('acid')) return 'Corrosive';
+    final lower = name.toLowerCase();
+    if (lower.contains('benz') || lower.contains('chloro')) return 'Flammable';
+    if (lower.contains('formaldehyde')) return 'Toxic';
+    if (lower.contains('acid')) return 'Corrosive';
     return 'Warning';
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{'name': name, 'cid': cid, 'formula': formula, 'weight': weight, 'imageUrl': imageUrl, 'hazard': hazard};
+    return {'name': name, 'cid': cid, 'formula': formula, 'weight': weight, 'imageUrl': imageUrl, 'hazard': hazard};
   }
 
   factory CompoundModel.fromMap(Map<String, dynamic> map) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:moleculist/common/resources/color/app_colors.dart';
 import 'package:moleculist/presentation/views/global/widgets/custom_loader.dart';
 
@@ -25,26 +26,32 @@ class CompundListView extends StatelessWidget {
             }
 
             return Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               child: RefreshIndicator(
                 onRefresh: () => compoundCubitInstance.loadCompoundList(shouldLoadFromCache: false, shouldShowLoading: false),
                 color: AppColors().pastelViolet,
-                child: GridView.builder(
-                  itemCount: state.compounds.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 0.75,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      Gap(12),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: state.compounds.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          childAspectRatio: 0.75,
+                        ),
+                        itemBuilder: (context, index) {
+                          return CompoundCard(compound: state.compounds[index], onTap: () {});
+                        },
+                      ),
+                      Gap(12),
+                    ],
                   ),
-                  itemBuilder: (context, index) {
-                    return CompoundCard(
-                      compound: state.compounds[index],
-                      onTap: () {
-                        // TODO: Implement navigation to detail page
-                      },
-                    );
-                  },
                 ),
               ),
             );
