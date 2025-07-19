@@ -43,7 +43,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Determine button and text colors based on the button state.
-    Color? resolvedButtonColor = buttonColor ?? Color(AppColors().primarySwatch.c500);
+    Color? resolvedButtonColor = buttonColor ?? AppColors().pastelViolet;
     Color? resolvedTextColor = textColor;
 
     if (isDisabled) {
