@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moleculist/presentation/blocs/compound_c/cubit/compound_cubit.dart';
+import 'package:moleculist/presentation/blocs/cubit/search_cubit.dart';
 import 'package:moleculist/presentation/views/dashboard/dashboard_v.dart';
 
-import '../../../presentation/blocs/compound_c/cubit/compound_cubit.dart';
 import '../../../presentation/views/global/error_v.dart';
 import '../../../presentation/views/splash/splash_v.dart';
 import '../logger.dart';
@@ -16,7 +17,13 @@ class ROUTECONTROLLER {
         return CustomTransitionPageRoute(childWidget: const SplashView());
       case ROUTES.getDashboardRoute:
         return CustomTransitionPageRoute(
-          childWidget: BlocProvider(create: (context) => compoundCubitInstance, child: const DashboardView()),
+          childWidget: MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => compoundCubitInstance),
+              BlocProvider(create: (context) => searchCubitInstance),
+            ],
+            child: DashboardView(),
+          ),
         );
       default:
         logger.debug(settings.name.toString());

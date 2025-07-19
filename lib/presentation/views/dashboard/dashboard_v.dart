@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -7,6 +6,7 @@ import 'package:moleculist/presentation/views/compunds/views/compund_list_v.dart
 import 'package:moleculist/presentation/views/dashboard/models/bottom_navbar_m.dart';
 import 'package:moleculist/presentation/views/dashboard/pages/lorem_v.dart';
 import 'package:moleculist/presentation/views/dashboard/widgets/bottom_navbar_w.dart';
+import 'package:moleculist/presentation/views/search/search_v.dart';
 
 import '../../../common/resources/dimentions/app_sizes.dart';
 import '../../../common/services/feature_flagger/feature_flagger_s.dart';
@@ -41,9 +41,9 @@ class DashboardViewState extends State<DashboardView> {
       ),
       DashboardPageM(
         isActive: true,
-        pageId: AppFeatures.loremFeature,
-        page: const LoremView(),
-        bottomNavbar: BottomNavbarM(title: "P1", icon: HugeIcons.strokeRoundedListSetting),
+        pageId: AppFeatures.searchFeature,
+        page: SearchView(),
+        bottomNavbar: BottomNavbarM(title: "Search", icon: Icons.search),
       ),
       DashboardPageM(
         isActive: true,
@@ -82,7 +82,7 @@ class DashboardViewState extends State<DashboardView> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: dashboardPages.where((e) => e.isActive).toList().length,
           itemBuilder: (context, index) {
-            return FadeIn(child: dashboardPages.where((e) => e.isActive).toList()[index].page);
+            return dashboardPages.where((e) => e.isActive).toList()[index].page;
           },
           onPageChanged: (value) {
             logger.debug("Dashboard page changed to $value");

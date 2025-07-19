@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:moleculist/domain/repositories/compound_r.dart';
+import 'package:moleculist/domain/repositories/search_r.dart';
 import 'package:moleculist/domain/services/compund_s.dart';
+import 'package:moleculist/domain/services/search_s.dart';
 import 'package:moleculist/presentation/blocs/compound_c/cubit/compound_cubit.dart';
+import 'package:moleculist/presentation/blocs/cubit/search_cubit.dart';
 
 import '../../../data/local/local_storage.dart';
 import '../../../data/remote/controller/network_c.dart';
@@ -32,11 +35,14 @@ class DependencyInjection {
   void _configureRepositoriesAndServices() {
     // Repository
     GetIt.instance.registerLazySingleton<CompoundRepository>(() => CompoundRepository(GetIt.instance<NetworkController>()));
+    GetIt.instance.registerLazySingleton<SearchRepository>(() => SearchRepository(GetIt.instance<NetworkController>()));
 
     // Service
     GetIt.instance.registerLazySingleton(() => CompoundService(repository: compoundRepositoryInstance));
+    GetIt.instance.registerLazySingleton(() => SearchService(repository: searchRepositoryInstance));
 
     // Bloc
     GetIt.instance.registerFactory(() => CompoundCubit(compoundService: compoundServiceInstance));
+    GetIt.instance.registerFactory(() => SearchCubit(searchService: searchServiceInstance));
   }
 }

@@ -25,7 +25,7 @@ class FeatureFlaggerService {
     await Future.delayed(const Duration(seconds: 1));
 
     // Initialize the list of features enabled by default.
-    activeFeatures = [AppFeatures.compoundListFeature, AppFeatures.loremFeature];
+    activeFeatures = [AppFeatures.compoundListFeature, AppFeatures.searchFeature, AppFeatures.loremFeature];
 
     // Check if specific features are enabled and add them to the active features list.
     // if (await Posthog().isFeatureEnabled(AppFeatures.eventFeature)) {
@@ -53,5 +53,6 @@ class FeatureFlaggerService {
 /// used throughout the application.
 class AppFeatures {
   static const String compoundListFeature = 'elementListFeature';
+  static const String searchFeature = 'searchFeature';
   static const String loremFeature = 'loremFeature';
 }
