@@ -5,7 +5,6 @@ import 'package:moleculist/presentation/blocs/compound_c/cubit/compound_cubit.da
 import 'package:moleculist/presentation/blocs/favorite_c/favorite_cubit.dart';
 import 'package:moleculist/presentation/views/compunds/views/compund_list_v.dart';
 import 'package:moleculist/presentation/views/dashboard/models/bottom_navbar_m.dart';
-import 'package:moleculist/presentation/views/dashboard/pages/lorem_v.dart';
 import 'package:moleculist/presentation/views/dashboard/widgets/bottom_navbar_w.dart';
 import 'package:moleculist/presentation/views/favorite/views/favorite_v.dart';
 import 'package:moleculist/presentation/views/search/search_v.dart';
@@ -14,6 +13,7 @@ import '../../../common/resources/dimentions/app_sizes.dart';
 import '../../../common/services/feature_flagger/feature_flagger_s.dart';
 import '../../../common/utilities/logger.dart';
 import '../../blocs/dashboard_b/dashboard_bloc.dart';
+import '../socials/views/socials_v.dart';
 import 'models/dashboard_page_m.dart';
 
 class DashboardView extends StatefulWidget {
@@ -55,9 +55,9 @@ class DashboardViewState extends State<DashboardView> {
       ),
       DashboardPageM(
         isActive: true,
-        pageId: AppFeatures.loremFeature,
-        page: const LoremView(),
-        bottomNavbar: BottomNavbarM(title: "P1", icon: HugeIcons.strokeRoundedListSetting),
+        pageId: AppFeatures.socialsFeature,
+        page: SocialsView(),
+        bottomNavbar: BottomNavbarM(title: "Socials", icon: HugeIcons.strokeRoundedAstronaut01),
       ),
     ];
     for (var element in dashboardPages) {
