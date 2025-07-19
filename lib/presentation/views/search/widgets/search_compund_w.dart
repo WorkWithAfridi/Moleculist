@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:moleculist/common/utilities/extensions/string_extensions.dart';
 import 'package:moleculist/domain/models/compund_m.dart';
 
@@ -23,7 +24,7 @@ class SearchCompundWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CachedNetworkImage(
-            imageUrl: compound.imageUrl.isNotEmpty ? compound.imageUrl : '',
+            imageUrl: compound.imageUrl ?? '',
             width: 100,
             height: 100,
             fit: BoxFit.cover,
@@ -35,19 +36,25 @@ class SearchCompundWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text((compound.name.isNotEmpty ? compound.name : "Unknown Name").capitalizeFirstLetter(), style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  (compound.name ?? "Unknown Name").capitalizeFirstLetter(),
+                  style: Theme.of(context).textTheme.titleMedium,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 const SizedBox(height: 4),
-                Text("Formula: ${compound.formula.isNotEmpty ? compound.formula : 'N/A'}", style: Theme.of(context).textTheme.bodySmall),
-                Text("Hazard: ${compound.hazard.isNotEmpty ? compound.hazard : 'None'}", style: Theme.of(context).textTheme.bodySmall),
+                Text("Formula: ${compound.formula ?? 'N/A'}", style: Theme.of(context).textTheme.bodySmall),
+                Text("Hazard: ${compound.hazard ?? 'None'}", style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
           ),
+          Gap(12),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.science, color: AppColors().primary),
               const SizedBox(height: 4),
-              Text(compound.weight.isNotEmpty ? compound.weight : '0.0', style: const TextStyle(fontSize: 12)),
+              Text(compound.weight ?? '0.0', style: const TextStyle(fontSize: 12)),
             ],
           ),
         ],

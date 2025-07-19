@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:moleculist/common/resources/color/app_colors.dart';
 import 'package:moleculist/common/utilities/extensions/string_extensions.dart';
+import 'package:moleculist/presentation/views/compunds/utils/hazard_color_util.dart';
 import 'package:moleculist/presentation/views/global/widgets/custom_loader.dart';
 
 import '../../../../domain/models/compund_m.dart';
@@ -23,10 +24,9 @@ class CompoundCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CachedNetworkImage(
-              imageUrl: compound.imageUrl,
+              imageUrl: compound.imageUrl ?? "",
               height: 120,
               width: double.maxFinite,
-              fit: BoxFit.fitWidth,
               placeholder: (context, url) => CustomLoader(color: AppColors().pastelViolet),
               errorWidget: (context, url, error) => const Icon(Icons.broken_image),
             ),
@@ -37,19 +37,19 @@ class CompoundCard extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(bottom: 4, left: 8, right: 8),
                     child: Text(
-                      compound.name.capitalizeFirstLetter(),
+                      (compound.name ?? "Unknown Name").capitalizeFirstLetter(),
                       style: Theme.of(context).textTheme.titleMedium,
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Text(compound.formula, style: const TextStyle(color: Colors.grey)),
+                  Text(compound.formula ?? 'N/A', style: const TextStyle(color: Colors.grey)),
                   Text('${compound.weight} g/mol', style: const TextStyle(color: Colors.black87)),
                   const SizedBox(height: 4),
                   Chip(
-                    label: Text(compound.hazard),
-                    backgroundColor: _hazardColor(compound.hazard),
+                    label: Text(compound.hazard ?? ""),
+                    backgroundColor: getHazardColor(compound.hazard ?? ""),
                     labelStyle: const TextStyle(color: Colors.white),
                     visualDensity: VisualDensity.compact,
                   ),
@@ -62,16 +62,5 @@ class CompoundCard extends StatelessWidget {
     );
   }
 
-  Color _hazardColor(String hazard) {
-    switch (hazard.toLowerCase()) {
-      case 'flammable':
-        return Colors.red;
-      case 'toxic':
-        return Colors.purple;
-      case 'corrosive':
-        return Colors.blueGrey;
-      default:
-        return Colors.orange;
-    }
-  }
+  
 }

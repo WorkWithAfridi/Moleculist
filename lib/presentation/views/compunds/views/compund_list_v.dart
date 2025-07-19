@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:moleculist/common/resources/color/app_colors.dart';
+import 'package:moleculist/common/utilities/extensions/on_build_context.dart';
+import 'package:moleculist/common/utilities/routing/app_routes.dart';
 import 'package:moleculist/presentation/views/global/widgets/custom_loader.dart';
 
 import '../../../blocs/compound_c/cubit/compound_cubit.dart';
@@ -46,7 +48,12 @@ class CompundListView extends StatelessWidget {
                           childAspectRatio: 0.75,
                         ),
                         itemBuilder: (context, index) {
-                          return CompoundCard(compound: state.compounds[index], onTap: () {});
+                          return CompoundCard(
+                            compound: state.compounds[index],
+                            onTap: () {
+                              context.navigateToNamed(ROUTES.getCompundDetailRoute, arguments: state.compounds[index]);
+                            },
+                          );
                         },
                       ),
                       Gap(12),
