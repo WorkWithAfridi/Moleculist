@@ -69,18 +69,22 @@ Moleculist is built with a clean, layered architecture that ensures separation o
 
 ### 🔧 Layers Overview
 lib/
+├── common/
+│   ├── resources/       → App-wide resources (e.g., themes, constants).
+│   ├── services/        → Common services (e.g., logging).
+│   └── utilities/       → Utility functions and helpers.
 ├── data/
-│   ├── remote/          → API endpoints, network controller
-│   └── local/           → Local storage (cache)
+│   ├── local/           → Local data sources (e.g., Hive for caching).
+│   └── remote/          → Remote data sources & API clients (e.g., Dio).
 ├── domain/
-│   ├── models/          → App-level data models (Compound, etc.)
-│   ├── repositories/    → Abstract & concrete repository implementations
-│   └── services/        → Business logic & coordination of repositories
+│   ├── entities/        → Core business objects (plain Dart objects).
+│   ├── models/          → Data models with serialization logic.
+│   ├── repositories/    → Abstract contracts for data layers.
+│   └── services/        → Business logic and use cases.
 ├── presentation/
-│   ├── cubits/          → UI state management (search, compound)
-│   ├── views/           → Screens and routing
-│   └── widgets/         → Reusable UI components
-└── common/              → App-wide utilities (e.g., logger, theme)
+│   ├── blocs/           → State management (Blocs/Cubits).
+│   └── views/           → UI screens and widgets.
+└── main.dart            → App entry point.
 
 ### 🧠 State Management: Bloc/Cubit
 We use Flutter Bloc for predictable state management. Each UI feature is backed by a dedicated Cubit:
